@@ -4,7 +4,9 @@ import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprot
 
 const server = new Server({ name: "fixture", version: "0.0.1" }, { capabilities: { tools: {} } });
 
-server.setRequestHandler(ListToolsRequestSchema, async () => ({ tools: [{ name: "echo", description: "Echo tool", inputSchema: { type: "object", properties: { message: { type: "string" } }, required: ["message"] } }] }));
+server.setRequestHandler(ListToolsRequestSchema, async () => ({
+  tools: [{ name: "echo", description: "Echo", inputSchema: { type: "object", properties: { message: { type: "string" } }, required: ["message"] } }],
+}));
 
 server.setRequestHandler(CallToolRequestSchema, async (req) => {
   if (req.params.name === "echo") return { content: [{ type: "text", text: req.params.arguments.message }] };

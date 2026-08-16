@@ -1,0 +1,36 @@
+version: 1
+
+server:
+  transport: stdio
+  command: node
+  args: ["./examples/calculator-server.mjs"]
+
+options:
+  timeout: 8000
+
+tests:
+  - name: Add two numbers
+    tool: add
+    input:
+      a: 5
+      b: 3
+    expect:
+      output:
+        result: 8
+
+  - name: Multiply
+    tool: multiply
+    input:
+      a: 6
+      b: 7
+    expect:
+      contains:
+        result: 42
+
+  - name: Divide by zero
+    tool: divide
+    input:
+      a: 10
+      b: 0
+    expect:
+      error: true
